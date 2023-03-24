@@ -1,32 +1,20 @@
-# Remix
+<br><p align="center">
+<img height="100px" src="./public/apple-touch-icon.png" />
 
-This directory is a brief example of a [Remix](https://remix.run/docs) site that can be deployed to Vercel with zero configuration.
+</p>
+<h1 align="center">Search Engine</h1>
+<br>
 
-## Deploy Your Own
+> RMDB built using [Remix](https://github.com/remix-run/remix), [React 18](https://github.com/facebook/react), [TailwindCSS](https://github.com/tailwindlabs/tailwindcss), [Radix UI](https://www.radix-ui.com/) and [TypeScript](https://github.com/microsoft/TypeScript).
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/vercel/tree/main/examples/remix&template=remix)
+**🍿 Live preview:** <https://search-engine.andreslemusm.com/>
 
-_Live Example: https://remix-run-template.vercel.app_
+## Setup
 
-You can also deploy using the [Vercel CLI](https://vercel.com/cli):
+```bash
+# Install dependencies
+$ npm install
 
-```sh
-npm i -g vercel
-vercel
+# Start dev server at localhost:3000
+$ npm dev
 ```
-
-## Development
-
-To run your Remix app locally, make sure your project's local dependencies are installed:
-
-```sh
-npm install
-```
-
-Afterwards, start the Remix development server like so:
-
-```sh
-npm run dev
-```
-
-Open up [http://localhost:3000](http://localhost:3000) and you should be ready to go!
