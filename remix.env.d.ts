@@ -2,7 +2,7 @@
 
 declare namespace NodeJS {
   export interface ProcessEnv {
-    readonly ES_ENDPOINT: string;
+    readonly ES_NODE: string;
     readonly ES_USER: string;
     readonly ES_PASSWORD: string;
   }
