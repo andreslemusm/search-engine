@@ -16,5 +16,5 @@
 $ npm install
 
 # Start dev server at localhost:3000
-$ npm dev
+$ npm run dev
 ```
