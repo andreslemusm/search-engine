@@ -1,8 +1,7 @@
 import { Fragment } from "react";
 import { Transition } from "@headlessui/react";
-import { Form, useSearchParams } from "@remix-run/react";
+import { Form, Outlet, useNavigation, useSearchParams } from "@remix-run/react";
 import { Loader2, Search as SearchIcon } from "lucide-react";
-import { Outlet, useNavigation } from "@remix-run/react";
 
 const Layout = () => {
   const [searchParams] = useSearchParams();
@@ -31,6 +30,7 @@ const Layout = () => {
               className="block w-full rounded-xl border border-transparent bg-transparent py-2.5 pl-10 pr-3 text-zinc-50 placeholder-zinc-400 transition-colors duration-300 ease-in-out hover:bg-zinc-800 focus:border-emerald-500 focus:bg-transparent focus:placeholder-zinc-500 focus:ring-0"
               placeholder="Search for an organization or topic..."
               defaultValue={query}
+              autoComplete="off"
             />
           </label>
           <Transition

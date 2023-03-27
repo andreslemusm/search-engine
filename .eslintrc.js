@@ -91,6 +91,7 @@ module.exports = {
         "import/no-absolute-path": "error",
         "import/no-cycle": ["error", { ignoreExternal: true }],
         "import/no-deprecated": "error",
+        "import/no-duplicates": "error",
         "import/no-extraneous-dependencies": [
           "error",
           { optionalDependencies: false },
