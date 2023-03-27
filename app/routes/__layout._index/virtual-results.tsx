@@ -19,6 +19,7 @@ const VirtualResults = ({
   data,
   totalResults,
   query,
+  entityType,
 }: Omit<
   Extract<SerializeFrom<typeof loader>, { status: "searched" }>,
   "status"
@@ -66,12 +67,20 @@ const VirtualResults = ({
           query,
           start,
           limit: LIMIT.toString(),
+          entityType,
         }).toString()}&index`
       );
 
       startRef.current += LIMIT;
     }
-  }, [hasNextPage, infiniteScrollFetcher, items.length, query, virtualItems]);
+  }, [
+    entityType,
+    hasNextPage,
+    infiniteScrollFetcher,
+    items.length,
+    query,
+    virtualItems,
+  ]);
 
   // Sync loaded data with our local items state
   useEffect(() => {

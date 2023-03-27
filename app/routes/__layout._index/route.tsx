@@ -1,22 +1,25 @@
 import { Fragment } from "react";
 import { cacheHeader } from "pretty-cache-header";
+import clsx from "clsx";
+import type { entityTypeFilters } from "~/services/search.server";
 import { formatNumberAsCompactNumber } from "~/utils/formatters.server";
 import { generateMetaTags } from "~/utils/meta-tags";
 import { getSearch } from "~/services/search.server";
 import { json } from "@vercel/remix";
-import { useLoaderData } from "@remix-run/react";
 import type {
   HeadersFunction,
   LoaderArgs,
   V2_MetaFunction as MetaFunction,
 } from "@vercel/remix";
 import { LIMIT, VirtualResults } from "./virtual-results";
+import { Link, useLoaderData } from "@remix-run/react";
 import { undrawSearching, undrawVoid } from "~/assets";
 
 const loader = async ({ request }: LoaderArgs) => {
   const searchParams = new URL(request.url).searchParams;
   const query = searchParams.get("query");
   const start = Number(searchParams.get("start") ?? 0);
+  const entityType = searchParams.get("entityType") ?? "all";
 
   if (!query) {
     return json(
@@ -33,12 +36,19 @@ const loader = async ({ request }: LoaderArgs) => {
     );
   }
 
-  const { hits } = await getSearch({ query, start, limit: LIMIT });
+  const { hits } = await getSearch({
+    query,
+    start,
+    limit: LIMIT,
+    // This is a mistake, you should use library like zod for checking data on the server
+    entityType: entityType as keyof typeof entityTypeFilters,
+  });
 
   return json(
     {
       status: "searched" as const,
       query,
+      entityType,
       totalResults: {
         label: formatNumberAsCompactNumber(
           typeof hits.total === "number" ? hits.total : hits.total?.value ?? 0
@@ -100,7 +110,7 @@ const meta: MetaFunction<typeof loader> = ({ data }) =>
     title:
       data.status === "idle"
         ? "Search Engine"
-        : `Search: ${data.query} | Search Engine`,
+        : `${data.query} | Search Engine`,
     description: "Find information about organizations and topics",
   });
 
@@ -110,6 +120,27 @@ const Search = () => {
   if (loaderData.status === "searched" && loaderData.totalResults.value > 0) {
     return (
       <Fragment>
+        <nav className="flex items-center gap-x-5 border-b border-zinc-800 py-5">
+          {entityTypes.map(({ entityType, label }) => (
+            <Link
+              key={entityType}
+              to={{
+                search: new URLSearchParams({
+                  query: loaderData.query,
+                  entityType,
+                }).toString(),
+              }}
+              className={clsx(
+                entityType === loaderData.entityType
+                  ? "bg-zinc-800 text-zinc-200"
+                  : "text-zinc-400 hover:text-zinc-200",
+                "shrink-0 rounded-lg px-3 py-2 text-sm font-bold  transition"
+              )}
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
         <p className="pt-6 pb-8 text-zinc-400">
           We found{" "}
           <span className="font-bold text-emerald-400">
@@ -118,10 +149,12 @@ const Search = () => {
           results for &quot;{loaderData.query}&quot;
         </p>
         <VirtualResults
-          key={loaderData.query}
           data={loaderData.data}
           query={loaderData.query}
           totalResults={loaderData.totalResults}
+          entityType={loaderData.entityType}
+          // This is to avoid more complex sync logic inside VirtualResults
+          key={loaderData.query + loaderData.entityType}
         />
       </Fragment>
     );
@@ -164,6 +197,24 @@ const Search = () => {
     </div>
   );
 };
+
+const entityTypes = [
+  {
+    entityType: "all",
+    label: "All",
+  },
+  {
+    entityType: "curation.organization",
+    label: "Organization",
+  },
+  {
+    entityType: "collection.topic",
+    label: "Topic",
+  },
+] satisfies Array<{
+  entityType: keyof typeof entityTypeFilters;
+  label: string;
+}>;
 
 export { meta, loader, headers };
 export default Search;

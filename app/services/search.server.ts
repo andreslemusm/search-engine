@@ -1,13 +1,24 @@
 import { elasticSearchClient } from "~/utils/elastic-search.server";
 
-export const getSearch = ({
+const entityTypeFilters = {
+  all: [
+    { term: { entity_type: "curation.organization" } },
+    { term: { entity_type: "collection.topic" } },
+  ],
+  "curation.organization": [{ term: { entity_type: "curation.organization" } }],
+  "collection.topic": [{ term: { entity_type: "collection.topic" } }],
+};
+
+const getSearch = ({
   query,
   start,
   limit,
+  entityType,
 }: {
   query: string;
   start: number;
   limit: number;
+  entityType: keyof typeof entityTypeFilters;
 }) =>
   elasticSearchClient.search<
     | {
@@ -32,13 +43,12 @@ export const getSearch = ({
         must: {
           match: { name: query },
         },
-        should: [
-          { term: { entity_type: "curation.organization" } },
-          { term: { entity_type: "collection.topic" } },
-        ],
+        should: entityTypeFilters[entityType],
         minimum_should_match: 1,
       },
     },
     from: start,
     size: limit,
   });
+
+export { entityTypeFilters, getSearch };
