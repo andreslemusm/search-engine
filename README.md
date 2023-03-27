@@ -12,6 +12,9 @@
 ## Setup
 
 ```bash
+# Create .env file and check 'remix.env.d.ts' for the variable names
+$ touch .env
+
 # Install dependencies
 $ npm install
 
