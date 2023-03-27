@@ -50,7 +50,7 @@ const VirtualResults = ({
     const lastVirtualItemIndex = [...virtualItems].pop()?.index;
     const lastItemIndex = items.length - 1;
 
-    if (!lastVirtualItemIndex) {
+    if (typeof lastVirtualItemIndex !== "number") {
       throw new Error(
         "No results, please avoid rendering the <VirtualResults /> component and point the user towards making another search"
       );
