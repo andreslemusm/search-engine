@@ -144,7 +144,7 @@ const VirtualResults = ({
                   </HoverCardTrigger>
                   <HoverCardPortal>
                     <HoverCardContent
-                      className="w-80 rounded-lg border border-zinc-700 bg-zinc-800 px-5 pt-3 pb-4 data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade data-[state=open]:transition-all sm:w-96"
+                      className="w-80 rounded-lg border border-zinc-700 bg-zinc-800 p-5 data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade data-[state=open]:transition-all sm:w-96"
                       sideOffset={5}
                     >
                       {item.entityType === "curation.organization" ? (
