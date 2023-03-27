@@ -1,7 +1,3 @@
-/* eslint-disable functional/no-let, no-console
-  --
-  Need these ones to make it work
-*/
 import type { HandleDocumentRequestFunction } from "@vercel/remix";
 import { RemixServer } from "@remix-run/react";
 import { handleRequest } from "@vercel/remix";
