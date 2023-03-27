@@ -67,13 +67,22 @@ module.exports = {
             memberSyntaxSortOrder: ["single", "all", "multiple", "none"],
           },
         ],
-        "functional/prefer-immutable-types": "off",
-        "functional/no-throw-statements": "off",
-        "functional/type-declaration-immutability": "off",
-        "functional/functional-parameters": "off",
-        "functional/no-conditional-statements": "off",
-        "functional/no-expression-statements": "off",
-        "functional/no-return-void": "off",
+        "functional/immutable-data": [
+          "off",
+          {
+            ignoreImmediateMutation: true,
+            /**
+             * @description `*.current` property is used by React refs to persist a value for the full lifetime of the component.
+             * @link https://reactjs.org/docs/hooks-reference.html#useref
+             * s
+             * @description `*.displayName` property is used for better DX.
+             * @link https://reactjs.org/docs/forwarding-refs.html#displaying-a-custom-name-in-devtools
+             * @link https://reactjs.org/docs/context.html#contextdisplayname
+             */
+            ignoreAccessorPattern: ["*.current", "*.displayName"],
+          },
+        ],
+
         "import/export": "error",
         "import/exports-last": "error",
         "import/first": "error",
@@ -150,6 +159,13 @@ module.exports = {
          * OOP patterns are disabled, so this rule is unnecesary.
          */
         "functional/no-mixed-type": "off",
+        "functional/prefer-immutable-types": "off",
+        "functional/no-throw-statements": "off",
+        "functional/type-declaration-immutability": "off",
+        "functional/functional-parameters": "off",
+        "functional/no-conditional-statements": "off",
+        "functional/no-expression-statements": "off",
+        "functional/no-return-void": "off",
       },
       settings: {
         react: {
