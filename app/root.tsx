@@ -1,4 +1,3 @@
-import { Analytics } from "@vercel/analytics/react";
 import type { LinksFunction } from "@vercel/remix";
 import styles from "./styles/index.output.css";
 import {
@@ -57,7 +56,6 @@ const App = () => (
       <ScrollRestoration />
       <Scripts />
       <LiveReload />
-      <Analytics />
     </body>
   </html>
 );
