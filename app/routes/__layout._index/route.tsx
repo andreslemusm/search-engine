@@ -130,6 +130,9 @@ const Search = () => {
                   entityType,
                 }).toString(),
               }}
+              aria-current={
+                entityType === loaderData.entityType ? "page" : undefined
+              }
               className={clsx(
                 entityType === loaderData.entityType
                   ? "bg-zinc-800 text-zinc-200"
