@@ -189,7 +189,7 @@ const Search = () => {
       <img
         className="h-48 w-auto"
         src={undrawSearching}
-        alt="Women organizing blocks on a UI"
+        alt="Woman organizing blocks on a UI"
         width={161}
         height={150}
       />
