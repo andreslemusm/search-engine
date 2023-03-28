@@ -117,7 +117,7 @@ const meta: MetaFunction<typeof loader> = ({ data }) =>
 const Search = () => {
   const loaderData = useLoaderData<typeof loader>();
 
-  if (loaderData.status === "searched" && loaderData.totalResults.value > 0) {
+  if (loaderData.status === "searched") {
     return (
       <Fragment>
         <nav className="flex items-center gap-x-5 border-b border-zinc-800 py-5">
@@ -141,41 +141,46 @@ const Search = () => {
             </Link>
           ))}
         </nav>
-        <p className="pt-6 pb-8 text-zinc-400">
-          We found{" "}
-          <span className="font-bold text-emerald-400">
-            {loaderData.totalResults.label}
-          </span>{" "}
-          results for &quot;{loaderData.query}&quot;
-        </p>
-        <VirtualResults
-          data={loaderData.data}
-          query={loaderData.query}
-          totalResults={loaderData.totalResults}
-          entityType={loaderData.entityType}
-          // This is to avoid more complex sync logic inside VirtualResults
-          key={loaderData.query + loaderData.entityType}
-        />
+        {loaderData.totalResults.value > 0 ? (
+          <Fragment>
+            <p className="pt-6 pb-8 text-zinc-400">
+              We found{" "}
+              <span className="font-bold text-emerald-400">
+                {loaderData.totalResults.label}
+              </span>{" "}
+              results for &quot;{loaderData.query}&quot;
+            </p>
+            <VirtualResults
+              data={loaderData.data}
+              query={loaderData.query}
+              totalResults={loaderData.totalResults}
+              entityType={loaderData.entityType}
+              // This is to avoid more complex sync logic inside VirtualResults
+              key={loaderData.query + loaderData.entityType}
+            />
+          </Fragment>
+        ) : (
+          <Fragment>
+            <div className="flex flex-col items-center justify-center pt-32">
+              <img
+                className="h-48 w-auto"
+                src={undrawVoid}
+                alt="Man looking a void"
+                width={143}
+                height={150}
+              />
+              <p className="mt-6 text-lg font-bold text-zinc-50">
+                No results found
+              </p>
+              <p className="mt-2 text-center text-zinc-300">
+                We couldn&apos;t found any matches for &quot;{loaderData.query}
+                &quot;. <br /> Please try making another search or removing any
+                filters.
+              </p>
+            </div>
+          </Fragment>
+        )}
       </Fragment>
-    );
-  }
-
-  if (loaderData.status === "searched") {
-    return (
-      <div className="flex flex-col items-center justify-center pt-32">
-        <img
-          className="h-48 w-auto"
-          src={undrawVoid}
-          alt="Man looking a void"
-          width={143}
-          height={150}
-        />
-        <p className="mt-6 text-lg font-bold text-zinc-50">No results found</p>
-        <p className="mt-2 text-center text-zinc-300">
-          &quot;{loaderData.query}&quot; did not matched any organization or
-          topic. <br /> Please try making another search.
-        </p>
-      </div>
     );
   }
 
