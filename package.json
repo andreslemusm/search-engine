@@ -30,6 +30,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "1.32.1",
     "@remix-run/dev": "1.14.3",
     "@remix-run/eslint-config": "1.14.3",
     "@remix-run/serve": "1.14.3",
