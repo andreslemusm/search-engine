@@ -53,7 +53,7 @@ const VirtualResults = ({
 
     if (typeof lastVirtualItemIndex !== "number") {
       throw new Error(
-        "No results, please avoid rendering the <VirtualResults /> component and point the user towards making another search"
+        "No results, please avoid rendering the <VirtualResults /> component and point the user towards making another search",
       );
     }
 
@@ -68,7 +68,7 @@ const VirtualResults = ({
           start,
           limit: LIMIT.toString(),
           entityType,
-        }).toString()}&index`
+        }).toString()}&index`,
       );
 
       startRef.current += LIMIT;

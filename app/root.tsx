@@ -9,6 +9,10 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+const config = {
+  runtime: "edge",
+};
+
 const links: LinksFunction = () => [
   // Favicons
   { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
@@ -60,5 +64,5 @@ const App = () => (
   </html>
 );
 
-export { links };
+export { links, config };
 export default App;

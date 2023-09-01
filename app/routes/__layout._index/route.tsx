@@ -32,7 +32,7 @@ const loader = async ({ request }: LoaderArgs) => {
             staleWhileRevalidate: "1month",
           }),
         },
-      }
+      },
     );
   }
 
@@ -51,7 +51,7 @@ const loader = async ({ request }: LoaderArgs) => {
       entityType,
       totalResults: {
         label: formatNumberAsCompactNumber(
-          typeof hits.total === "number" ? hits.total : hits.total?.value ?? 0
+          typeof hits.total === "number" ? hits.total : hits.total?.value ?? 0,
         ),
         value:
           typeof hits.total === "number" ? hits.total : hits.total?.value ?? 0,
@@ -59,7 +59,7 @@ const loader = async ({ request }: LoaderArgs) => {
       data: hits.hits.map((hit) => {
         if (!hit._source) {
           throw new Error(
-            "hit without data, please review the appropiate way to handle this case"
+            "hit without data, please review the appropiate way to handle this case",
           );
         }
 
@@ -71,7 +71,7 @@ const loader = async ({ request }: LoaderArgs) => {
             urls: hit._source.urls,
             subType: hit._source.subtype,
             numberOfConnections: formatNumberAsCompactNumber(
-              hit._source.number_of_connections
+              hit._source.number_of_connections,
             ),
             entityType: hit._source.entity_type,
           };
@@ -83,7 +83,7 @@ const loader = async ({ request }: LoaderArgs) => {
           description: hit._source.description?.trim(),
           keywords: hit._source.keywords,
           numberOfConnections: formatNumberAsCompactNumber(
-            hit._source.number_of_connections
+            hit._source.number_of_connections,
           ),
           entityType: hit._source.entity_type,
         };
@@ -97,7 +97,7 @@ const loader = async ({ request }: LoaderArgs) => {
           staleWhileRevalidate: "1month",
         }),
       },
-    }
+    },
   );
 };
 
@@ -107,10 +107,11 @@ const headers: HeadersFunction = ({ loaderHeaders }) => ({
 
 const meta: MetaFunction<typeof loader> = ({ data }) =>
   generateMetaTags({
-    title:
-      data.status === "idle"
+    title: data
+      ? data.status === "idle"
         ? "Search Engine"
-        : `${data.query} | Search Engine`,
+        : `${data.query} | Search Engine`
+      : "Search Engine",
     description: "Find information about organizations and topics",
   });
 
@@ -137,7 +138,7 @@ const Search = () => {
                 entityType === loaderData.entityType
                   ? "bg-zinc-800 text-zinc-200"
                   : "text-zinc-400 hover:text-zinc-200",
-                "shrink-0 rounded-lg px-3 py-2 text-sm font-bold  transition"
+                "shrink-0 rounded-lg px-3 py-2 text-sm font-bold  transition",
               )}
             >
               {label}

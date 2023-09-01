@@ -14,15 +14,15 @@ test.describe("Search", () => {
 
     // Has call to action message by default
     await expect(
-      page.getByRole("img", { name: /woman organizing blocks on a ui/i })
+      page.getByRole("img", { name: /woman organizing blocks on a ui/i }),
     ).toBeVisible();
 
     await expect(
-      page.getByRole("heading", { name: /what are you searching for\?/i })
+      page.getByRole("heading", { name: /what are you searching for\?/i }),
     ).toBeVisible();
 
     await expect(
-      page.getByRole("heading", { name: /what are you searching for\?/i })
+      page.getByRole("heading", { name: /what are you searching for\?/i }),
     ).toBeVisible();
 
     const searchInput = page.getByRole("textbox", { name: /search/i });
@@ -32,13 +32,13 @@ test.describe("Search", () => {
     // Has all, organization, and topic filters.
     await expect(page.getByRole("link", { name: /all/i })).toBeVisible();
     await expect(
-      page.getByRole("link", { name: /organization/i })
+      page.getByRole("link", { name: /organization/i }),
     ).toBeVisible();
     await expect(page.getByRole("link", { name: /topic/i })).toBeVisible();
 
     // Has the results count
     await expect(
-      page.getByText(new RegExp(`we found \\w+ results for "${query}"`, "i"))
+      page.getByText(new RegExp(`we found \\w+ results for "${query}"`, "i")),
     ).toBeVisible();
 
     // Has a list of result

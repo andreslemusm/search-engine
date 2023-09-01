@@ -20,7 +20,7 @@ export const Badge = <TElement extends React.ElementType = "span">({
     <Element
       className={clsx(
         "shrink-0 rounded-full px-2 text-xs font-bold leading-5 ring-1 ring-inset",
-        colors[color]
+        colors[color],
       )}
       {...elementProps}
     >
